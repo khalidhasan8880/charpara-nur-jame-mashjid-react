@@ -1,7 +1,7 @@
 const SVGComponent = (props) => (
     <svg
-      width="80px"
-      height="80px"
+      width="80%"
+      height="80%"
       viewBox="0 0 48 48"
       xmlns="http://www.w3.org/2000/svg"
       {...props}

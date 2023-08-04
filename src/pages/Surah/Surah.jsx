@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useLocation, useParams } from "react-router-dom";
 import VerseCard from "../../components/VerseCard";
 import {  useState } from "react";
+import Loading from "../../components/Loading";
 
 const Surah = () => {
   const [activePage, setActivePage] = useState(1);
@@ -12,7 +13,6 @@ const Surah = () => {
   const { id } = useParams();
   const location = useLocation();
   const surahInfo = location.state;
-  const navigate = useNavigate()
   const { data, isLoading } = useQuery({
     queryKey: ["quran", id, activePage],
     queryFn: async () => {
@@ -24,17 +24,13 @@ const Surah = () => {
   });
 
   if (isLoading) {
-    return (
-      <div className="absolute-center">
-        <h2 className="text-2xl">Loading...</h2>
-      </div>
-    );
+    return <Loading></Loading>
   }
  
   
 
 if (data?.length === 0 ) {
-  navigate('/quran')
+  return <Navigate to='/quran' replace></Navigate>
 }
   // let audioArray = audiosInPage?.audio_files?.map(a=> 'https://verses.quran.com/'+a.url)
 

@@ -9,32 +9,40 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Home from "./pages/Home/Home.jsx";
 import Quran from "./pages/Quran/Quran.jsx";
 import Surah from "./pages/Surah/Surah.jsx";
+import QuranAudio from "./pages/QuranAudio/QuranAudio.jsx";
+import AuthProvider from "./AuthProvider/AuthProvider.jsx";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App></App>,
-    children:[
+    children: [
       {
-        path:"/",
-        element:<Home></Home>
+        path: "/",
+        element: <Home></Home>,
       },
       {
-        path:"/quran",
-        element:<Quran></Quran>
+        path: "/quran",
+        element: <Quran></Quran>,
       },
       {
-        path:"/quran/:id",
-        element:<Surah></Surah>
+        path: "/quran/:id",
+        element: <Surah></Surah>,
       },
-    ]
+      {
+        path: "/quran/audio",
+        element: <QuranAudio></QuranAudio>,
+      },
+    ],
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );

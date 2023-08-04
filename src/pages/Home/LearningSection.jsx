@@ -6,13 +6,18 @@ import QuranAudioIcon from "../../components/svgs/QuranAudioIcon";
 const LearningSection = () => {
 
   return (
-    <section className="container mx-auto flex-center gap-3">
-      <Link to='/quran'>
+    <section className="container px-2 mx-auto">
+     <div  className=" flex-center gap-3">
+     <Link to='/quran'>
         <LinkCard icon={QuranIcon} title='Quran'></LinkCard>
       </Link>
-      <Link to='/quran'>
+      <Link to='/quran/audio'>
         <LinkCard icon={QuranAudioIcon} title='Quran Audio'></LinkCard>
       </Link>
+      <Link to='/quran/audio'>
+        <LinkCard icon={QuranAudioIcon} title='Quran Audio'></LinkCard>
+      </Link>
+     </div>
     
     </section>
   );
