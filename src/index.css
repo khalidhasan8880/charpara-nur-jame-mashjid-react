@@ -25,7 +25,9 @@ html {
     -webkit-transform: translate(-50%, -50%);
   }
   
-
+.audio_player{
+  height: 100svh;
+}
   
   .head_text {
     @apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl;

@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 const QuranAudio = () => {
   const { allChapterInfo, isLoading } = useContext(AuthContext);
   const [isPlaying, setIsPlaying] = useState(false)
-  const [initialAudio, setInitialAudio] = useState(1)
+  const [audioIndex, setAudioIndex] = useState(1)
   const audioElement = useRef()
 
   const {data} = useQuery({
@@ -30,52 +30,42 @@ const QuranAudio = () => {
   }
 
   const skipStartHandler = () =>{
-    if (initialAudio <= 0) {
-      setInitialAudio(allAudio?.length - 1)
+    if (audioIndex <= 0) {
+      setAudioIndex(allAudio?.length - 1)
     }else {
-      setInitialAudio(initialAudio - 1)
+      setAudioIndex(audioIndex - 1)
     }
     setIsPlaying(true);
-    audioElement.current.src = allAudio[initialAudio]
+    audioElement.current.src = allAudio[audioIndex]
     audioElement.current.play()
   }
   const skipEndHandler = () =>{
-    if (initialAudio >= allAudio?.length - 1) {
-      setInitialAudio(0)
+    if (audioIndex >= allAudio?.length - 1) {
+      setAudioIndex(0)
     }else {
-      setInitialAudio(initialAudio + 1)
+      setAudioIndex(audioIndex + 1)
     }
     setIsPlaying(true);
-    audioElement.current.src = allAudio[initialAudio]
+    audioElement.current.src = allAudio[audioIndex]
     audioElement.current.play()
   }
+  console.log(audioIndex);
 
 // fetch("https://api.quran.com/api/v4/chapter_recitations/2/")
-  // const playAudio = (id) => {
-  //   if (playingAudio) {
-  //     playingAudio.pause()
-  //     setPlayingAudio(null)
-  //   }else{
-  //     console.log(playingAudio);
-  //     fetch(`https://api.quran.com/api/v4/chapter_recitations/2/${id}`)
-  //     .then(res=>res.json())
-  //     .then(data=>{
-  //       setLoadingAudio(false)
-  //       console.log(data?.audio_file?.audio_url);
-  //       let audio = new Audio(data?.audio_file?.audio_url)
-  //       audio.play()
-  //       setPlayingAudio(audio)
-        
-  //     })
-  //   }
-  // };
+  const playAudio = (id) => {
+    
+  audioElement.current.src = allAudio[id - 1]
+ audioElement.current.play()
+ setAudioIndex(id - 1)
+setIsPlaying(true)
+  };
   if (isLoading) {
     return <Loading></Loading>;
   }
-console.log(initialAudio);
+console.log(audioIndex);
   return (
-    <section className="grid md:grid-cols-3 gap-2 container mx-auto px-2">
-      <div className="w-full h-24 bg-slate-400 fixed bottom-0 left-0 flex-center gap-x-6">
+  <section className="grid md:grid-cols-3 gap-2 container mx-auto px-1 pb-20 relative audio_player">
+      <div className="w-full h-16 bg-slate-400 fixed bottom-0 left-0 flex-center gap-x-6">
         <audio ref={audioElement} src={`https://download.quranicaudio.com/qdc/abdul_baset/murattal/1.mp3`}></audio>
         <button onClick={skipStartHandler}><BsSkipStartFill size={30}></BsSkipStartFill></button>
         <button onClick={playPauseHandler} ><FaPlay size={30}></FaPlay></button>
@@ -83,11 +73,11 @@ console.log(initialAudio);
       </div>
       {allChapterInfo?.chapters.map((chapter) => (
         <div
-          className="w-full h-20 border  rounded-md hover:bg-slate-200 font-semibold transition-hover duration-100 flex-between px-1 sm:px-4"
+          className="w-full h-20 border rounded-md hover:bg-slate-200 font-semibold transition-hover duration-100 flex-between px-1 sm:px-4"
           key={chapter.id}>
           <div className="flex-center gap-x-3">
             <span className="font-semibold">{chapter?.id}. </span>
-            <button onClick={()=> playPauseHandler(chapter?.id)} className="rounded-full bg-blue-950 block w-9 h-9 flex-center text-white">
+            <button onClick={()=> playAudio(chapter?.id)} className="rounded-full bg-blue-950 block w-9 h-9 flex-center text-white">
               <FaPlay></FaPlay>{" "}
             </button>
             <div>
@@ -99,12 +89,14 @@ console.log(initialAudio);
               <p>{chapter?.translated_name?.name}</p>
             </div>
           </div>
+         
           <div className="flex-center gap-4">
      <button>< FaRegHeart size={20}></FaRegHeart></button>
      <button>< FaDownload size={20}></FaDownload></button>
           </div>
         </div>
       ))}
+       <h1 className="text-white h-20">End</h1>
     </section>
   );
 };

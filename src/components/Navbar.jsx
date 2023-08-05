@@ -1,7 +1,7 @@
 const Navbar = () => {
   return (
     <nav>
-      <div className="p-2 text-gray-900 bg-white rounded-lg shadow-lg ">
+      <div className="p-2 text-gray-900 bg-white rounded-lg shadow-lg">
         <span className="px-2 mr-2 border-r border-gray-800">
           <img
             src="https://www.freepnglogos.com/uploads/spotify-logo-png/file-spotify-logo-png-4.png"
