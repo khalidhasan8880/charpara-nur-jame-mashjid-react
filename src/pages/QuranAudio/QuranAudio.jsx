@@ -30,12 +30,27 @@ const QuranAudio = () => {
   }
 
   const skipStartHandler = () =>{
-    // console.log(audioElement.current.src = `https://download.quranicaudio.com/qdc/abdul_baset/murattal/${initialAudio}.mp3`);
+    if (initialAudio <= 0) {
+      setInitialAudio(allAudio?.length - 1)
+    }else {
+      setInitialAudio(initialAudio - 1)
+    }
+    setIsPlaying(true);
+    audioElement.current.src = allAudio[initialAudio]
+    audioElement.current.play()
+  }
+  const skipEndHandler = () =>{
+    if (initialAudio >= allAudio?.length - 1) {
+      setInitialAudio(0)
+    }else {
+      setInitialAudio(initialAudio + 1)
+    }
+    setIsPlaying(true);
+    audioElement.current.src = allAudio[initialAudio]
+    audioElement.current.play()
   }
 
-
 // fetch("https://api.quran.com/api/v4/chapter_recitations/2/")
-
   // const playAudio = (id) => {
   //   if (playingAudio) {
   //     playingAudio.pause()
@@ -57,14 +72,14 @@ const QuranAudio = () => {
   if (isLoading) {
     return <Loading></Loading>;
   }
-
+console.log(initialAudio);
   return (
     <section className="grid md:grid-cols-3 gap-2 container mx-auto px-2">
       <div className="w-full h-24 bg-slate-400 fixed bottom-0 left-0 flex-center gap-x-6">
-        <audio ref={audioElement} src="https://download.quranicaudio.com/qdc/abdul_baset/murattal/1.mp3"></audio>
+        <audio ref={audioElement} src={`https://download.quranicaudio.com/qdc/abdul_baset/murattal/1.mp3`}></audio>
         <button onClick={skipStartHandler}><BsSkipStartFill size={30}></BsSkipStartFill></button>
-        <button ><FaPlay onClick={playPauseHandler} size={30}></FaPlay></button>
-        <button ><BsSkipEndFill size={30}></BsSkipEndFill></button>
+        <button onClick={playPauseHandler} ><FaPlay size={30}></FaPlay></button>
+        <button onClick={skipEndHandler}><BsSkipEndFill size={30}></BsSkipEndFill></button>
       </div>
       {allChapterInfo?.chapters.map((chapter) => (
         <div
