@@ -11,6 +11,8 @@ import Quran from "./pages/Quran/Quran.jsx";
 import Surah from "./pages/Surah/Surah.jsx";
 import QuranAudio from "./pages/QuranAudio/QuranAudio.jsx";
 import AuthProvider from "./AuthProvider/AuthProvider.jsx";
+import Login from "./pages/Login&Reg/Login.jsx";
+import Reg from "./pages/Login&Reg/Reg.jsx";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
       {
         path: "/quran/audio",
         element: <QuranAudio></QuranAudio>,
+      },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+      {
+        path: "registration",
+        element: <Reg></Reg>,
       },
     ],
   },
