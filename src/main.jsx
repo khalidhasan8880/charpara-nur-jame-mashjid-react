@@ -13,6 +13,7 @@ import QuranAudio from "./pages/QuranAudio/QuranAudio.jsx";
 import AuthProvider from "./AuthProvider/AuthProvider.jsx";
 import Login from "./pages/Login&Reg/Login.jsx";
 import Reg from "./pages/Login&Reg/Reg.jsx";
+import MediaProvider from "./MediaProvider.jsx/MediaProvider.jsx";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -51,7 +52,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <RouterProvider router={router} />
+        <MediaProvider>
+          <RouterProvider router={router} />
+        </MediaProvider>
       </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>

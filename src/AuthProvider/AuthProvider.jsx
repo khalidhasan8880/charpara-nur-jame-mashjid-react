@@ -21,8 +21,7 @@ const AuthProvider = ({ children }) => {
   });
 
   // google authentication
-  const googleSignInHandler = async(h) => {
-    console.log('helllooooooooo');
+  const googleSignInHandler = async() => {
     return await signInWithPopup(auth, googleProvider)
       .then((res) => {
         console.log(res);
@@ -31,11 +30,18 @@ const AuthProvider = ({ children }) => {
         console.log(err);
       });
   };
+
+  const MediaPlayer = ()=>{
+    return <div className="text-4xl">
+      hello
+    </div>
+  }
 // auth information
   const authInfo = {
     allChapterInfo,
     isLoading,
     googleSignInHandler,
+    MediaPlayer
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
