@@ -2,8 +2,8 @@ import { Outlet } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home/Home";
-import TestCenterAudio from "./components/TestCenterAudio";
-
+import AudioPlayer from "./pages/AudioPlayer/AudioPlayer";
+import  { Toaster } from 'react-hot-toast';
 function App() {
   return (
     <>
@@ -11,7 +11,9 @@ function App() {
       <Outlet>
         <Home></Home>
       </Outlet>
-      <TestCenterAudio></TestCenterAudio>
+      <AudioPlayer></AudioPlayer>
+      
+     <Toaster />
     </>
   );
 }

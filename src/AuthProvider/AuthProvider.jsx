@@ -9,7 +9,7 @@ const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
-  // quran audios
+  // fetched surah from 2 different api's, this one is for surah details
   const { data: allChapterInfo, isLoading } = useQuery({
     queryKey: ["quran"],
     queryFn: async () => {
@@ -31,17 +31,12 @@ const AuthProvider = ({ children }) => {
       });
   };
 
-  const MediaPlayer = ()=>{
-    return <div className="text-4xl">
-      hello
-    </div>
-  }
+
 // auth information
   const authInfo = {
     allChapterInfo,
     isLoading,
-    googleSignInHandler,
-    MediaPlayer
+    googleSignInHandler
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

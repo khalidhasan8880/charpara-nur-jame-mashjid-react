@@ -1,15 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
+import toast from 'react-hot-toast';
+
 import { createContext, useEffect, useRef, useState } from "react";
 export const MediaContext = createContext(null);
 const MediaProvider = ({ children }) => {
   const audioElement = useRef();
 
-  let [isOpen, setIsOpen] = useState(true);
+  let [isOpen, setIsOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioIndex, setAudioIndex] = useState(0);
-  const [pausedTime, setPausedTime] = useState(0)
+  const [pausedTime, setPausedTime] = useState(0);
 
-console.log(pausedTime);
+  console.log(pausedTime);
   const { data } = useQuery({
     queryKey: ["allQuranAudio2"],
     queryFn: async () => {
@@ -24,23 +26,41 @@ console.log(pausedTime);
   useEffect(() => {
     if (isPlaying) {
       audioElement.current.src = allAudio[audioIndex];
-      audioElement.current.currentTime = pausedTime
+      audioElement.current.currentTime = pausedTime;
       audioElement.current.play();
-    }else{        
-        audioElement.current.pause();
+    } else {
+      audioElement.current.pause();
     }
+    const audioEl = audioElement.current;
+    audioEl.onended = () => {
+      console.log('Audio has ended.');
+      // audioElement.current.src = allAudio[audioIndex + 1];
+      audioElement.current.play();
+    };
+
+    // Cleanup function to remove event listener
+    return () => {
+      audioEl.onended = null;
+    };
+
   }, [isPlaying, audioIndex]);
 
-
-
+  const playAudio = (id) => {
+    audioElement.current.src = allAudio[id - 1];
+    audioElement.current.play();
+    // id - 1 : for making audio index
+    setAudioIndex(id - 1);
+    setIsPlaying(true);
+    setPausedTime(0)
+  };
   const playPauseHandler = () => {
     if (!isPlaying) {
-    //   audioElement.current.play();
+      //   audioElement.current.play();
       setIsPlaying(true);
     } else {
-    //   audioElement.current.pause();
+      //   audioElement.current.pause();
       setIsPlaying(false);
-    setPausedTime(audioElement.current.currentTime)
+      setPausedTime(audioElement.current.currentTime);
     }
   };
 
@@ -61,8 +81,17 @@ console.log(pausedTime);
     setIsPlaying(true);
   };
 
-  
+  const stopAudioTimer = (min) => {
+    const milliseconds = min * 60;
+    setTimeout(function () {
+      audioElement.current.pause();
+      setIsPlaying(false);
+    }, milliseconds);
+    setIsOpen(false);
+    toast.success(`The timer has been successfully set`)
+  };
   // ---------
+
   const mediaInfo = {
     skipEndHandler,
     skipStartHandler,
@@ -72,6 +101,10 @@ console.log(pausedTime);
     isPlaying,
     setIsPlaying,
     audioElement,
+    stopAudioTimer,
+    allAudio,
+    audioIndex,
+    playAudio
   };
   return (
     <MediaContext.Provider value={mediaInfo}>{children}</MediaContext.Provider>
