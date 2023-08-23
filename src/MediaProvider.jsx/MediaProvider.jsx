@@ -6,8 +6,10 @@ const MediaProvider = ({ children }) => {
 
   let [isOpen, setIsOpen] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audioIndex, setAudioIndex] = useState(1);
+  const [audioIndex, setAudioIndex] = useState(0);
+  const [pausedTime, setPausedTime] = useState(0)
 
+console.log(pausedTime);
   const { data } = useQuery({
     queryKey: ["allQuranAudio2"],
     queryFn: async () => {
@@ -22,17 +24,23 @@ const MediaProvider = ({ children }) => {
   useEffect(() => {
     if (isPlaying) {
       audioElement.current.src = allAudio[audioIndex];
+      audioElement.current.currentTime = pausedTime
       audioElement.current.play();
+    }else{        
+        audioElement.current.pause();
     }
   }, [isPlaying, audioIndex]);
-  console.log(allAudio);
+
+
+
   const playPauseHandler = () => {
     if (!isPlaying) {
-      audioElement.current.play();
+    //   audioElement.current.play();
       setIsPlaying(true);
     } else {
-      audioElement.current.pause();
+    //   audioElement.current.pause();
       setIsPlaying(false);
+    setPausedTime(audioElement.current.currentTime)
     }
   };
 
@@ -53,6 +61,7 @@ const MediaProvider = ({ children }) => {
     setIsPlaying(true);
   };
 
+  
   // ---------
   const mediaInfo = {
     skipEndHandler,
