@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";

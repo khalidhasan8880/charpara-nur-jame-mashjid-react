@@ -15,6 +15,9 @@ const QuranAudio = () => {
   const audioElement = useRef();
 
   const {allAudio, playAudio,} = useContext(MediaContext)
+  useState(()=>{
+    setFavoriteAudio(JSON.parse(localStorage.getItem('favorite-audio')))
+  },[])
   // const { data } = useQuery({
   //   queryKey: ["allQuranAudio"],
   //   queryFn: async () => {

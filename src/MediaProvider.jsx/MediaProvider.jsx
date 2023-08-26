@@ -34,16 +34,11 @@ const MediaProvider = ({ children }) => {
     const audioEl = audioElement.current;
     audioEl.onended = () => {
       console.log('Audio has ended.');
-      // audioElement.current.src = allAudio[audioIndex + 1];
+      setAudioIndex(audioIndex + 1)
       audioElement.current.play();
     };
 
-    // Cleanup function to remove event listener
-    return () => {
-      audioEl.onended = null;
-    };
-
-  }, [isPlaying, audioIndex]);
+  }, [isPlaying, audioIndex, allAudio, pausedTime]);
 
   const playAudio = (id) => {
     audioElement.current.src = allAudio[id - 1];
