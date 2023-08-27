@@ -19,16 +19,24 @@ setTimeout(updateTime, 1000);
 const playSound=()=>{
   audio.play()
 }
+
+const time = currentTime.split(" ")[0]
+const amPm = currentTime.split(" ")[1]
   return (
-    <div className="banner min-h-[60vh] flex-center">
-      <div>
-        <h1 className="font-bold text-3xl md:text-5xl lg:text-7xl text-center text-white z-10">
+    <div className="banner min-h-[60vh] flex-between">
+      <div className="w-96">
+        {/* <h1 className="font-bold text-3xl md:text-5xl lg:text-7xl text-center text-white z-10">
           সময়
-        </h1>
+        </h1> */}
         <div>
-        <h1 onClick={playSound} className="font-bold text-3xl md:text-5xl lg:text-7xl text-center neon-text">
-          {currentTime}
-        </h1>
+        <div onClick={playSound} className="grid grid-cols-2 gap-x-2 w-52 sm:w-full italic text-red-700  clock_font text-4xl md:text-5xl lg:text-7xl text-center neon-text">
+         <p className="max-w-xs">{time}</p>
+          <p>{amPm}</p>
+        </div>
+        {
+          
+        }
+        <h3>{}</h3>
         </div>
       </div>
     </div>

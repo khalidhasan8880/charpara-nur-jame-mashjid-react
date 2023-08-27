@@ -54,7 +54,7 @@ const QuranAudio = () => {
 
   return (
     allAudio && (
-      <section className="grid md:grid-cols-3 gap-2 container mx-auto px-1 pb-20 relative audio_player">
+      <section className="grid md:grid-cols-3 gap-2 container mx-auto pb-20 relative ">
         
         {allChapterInfo?.chapters.map((chapter) => (
           <div

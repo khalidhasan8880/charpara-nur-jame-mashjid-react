@@ -1,32 +1,15 @@
 .banner{
-    background-image:
-    radial-gradient(#f5f5f500, #00000096),
+  background-image:
+    linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0.391)),
     url('https://1.bp.blogspot.com/-ON0pxjuJyBI/ULS2ZVv23jI/AAAAAAAAA00/PQ6l-7acva0/s1600/Madina-_Madina_saudia_Arabia_Hajj.jpeg');
+  
     background-size: cover;
     background-position: center;    
     width: 100%;
 }
 
-
-  
-  .neon-text {
-    color: #fff;
-    text-shadow:
-      0 0 10px #dc143c;
-    animation: flicker 1s infinite;
-  }
-  
-  @keyframes flicker {
-    0% {
-      text-shadow:
-        0 0 50px #dc143c,
-    }
-    100% {
-      text-shadow:  0 0 155px #dc143c;
-    }
-  }
-  
-  .card-shadow{
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  }
+.neon-text {
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+  color: #FF0000;
+}
   
