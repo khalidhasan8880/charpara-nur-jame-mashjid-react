@@ -18,11 +18,11 @@ const LearningSection = () => {
         <img className="w-[100px] sm:w-full" src={audioWave} alt="" />
         <h3 className="sm:text-1xl text-xl font-bold">Quran Audio</h3>
       </Link>
-      <Link className="shadow-md bg-blue-100 rounded-2xl flex flex-col items-center justify-center w-40 p-2" to='/quran/audio'>
+      <Link className="shadow-md bg-blue-100 rounded-2xl flex flex-col items-center justify-center w-40 p-2" to='/quran/learn'>
         <img className="w-[100px] sm:w-full" src={learnQuran} alt="" />
         <h3 className="sm:text-1xl text-xl font-bold">Learn Quran</h3>
       </Link>
-      <Link className="shadow-md bg-blue-100 rounded-2xl flex flex-col items-center justify-center w-40 p-2" to='/quran/audio'>
+      <Link className="shadow-md bg-blue-100 rounded-2xl flex flex-col items-center justify-center w-40 p-2" to='resources'>
         <img className="w-[100px] sm:w-full" src={resources} alt="" />
         <h3 className="sm:text-1xl text-xl font-bold">Resources</h3>
       </Link>

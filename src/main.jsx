@@ -14,6 +14,8 @@ import AuthProvider from "./AuthProvider/AuthProvider.jsx";
 import Login from "./pages/Login&Reg/Login.jsx";
 import Reg from "./pages/Login&Reg/Reg.jsx";
 import MediaProvider from "./MediaProvider.jsx/MediaProvider.jsx";
+import LearnQuran from "./pages/LearnQuran/LearnQuran.jsx";
+import Resources from "./pages/Resources/Resources.jsx";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
       {
         path: "registration",
         element: <Reg></Reg>,
+      },
+      {
+        path: "quran/learn",
+        element: <LearnQuran></LearnQuran>
+      },
+      {
+        path: "resources",
+        element: <Resources></Resources>
       },
     ],
   },
