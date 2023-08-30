@@ -5,7 +5,7 @@ import PrayerTime from "./PrayerTime";
 const Home = () => {
     return (
         <>
-            <Banner></Banner>
+            {/* <Banner></Banner> */}
             <PrayerTime></PrayerTime>
             <LearningSection></LearningSection>
 
