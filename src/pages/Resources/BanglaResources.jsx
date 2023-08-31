@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { FaMusic, FaPlus, FaRegFileAudio, FaUser, FaVideo } from "react-icons/fa";
 
 const BanglaResources = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,17 +19,41 @@ const BanglaResources = () => {
     console.log("Selected Option:", selectedType);
     // You can perform any further actions with the selected option here
   };
+  const fileType = 'audio'
   return (
     <section>
-      <a
-        className="shadow-md bg-blue-100 rounded-2xl h-10 w-full p-2"
-        href="https://www.nakbanglapodcast.com/">
-        Noman Ali Khan - All Audio
-      </a>
+      <div className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-5">
+        <a
+          className="col-span-2  bg-blue-100 shadow-md  rounded-2xl  w-full p-5"
+          href="https://www.nakbanglapodcast.com/">
+          <p className="responsive-text1">Quran Tafseer Bangla - Audio</p>
+          <p className="responsive-text2">Noman Ali Khan</p>
+        </a>
+        <a
+          className="relative bg-sky-100 shadow-md rounded-2xl  w-full p-5"
+          href="https://www.youtube.com/watch?v=pmc5q5KpXgc&list=PL2FHm7GZu6dkOquL_ZrA9kqsSf6JBhR6N">
+            {
+             fileType == 'audio' ? <FaMusic className="absolute right-6 top-6"></FaMusic > : <FaVideo className="absolute right-6 top-6"></FaVideo>
+            }
+          <div className="flex flex-col items-start justify-center gap-3">
+            
+            <div className="flex items-center gap-3">
+              <div className="rounded-full bg-white p-2"><FaUser size={30}></FaUser></div>
+              <div className="flex flex-col">
+              <p className="font-extralight text-sm m-0">Added by</p>
+              <p className="m-0 font-bold">Khalid Hasan</p>
+              </div>
+            </div>
+            <div>
+              <p className="responsive-text2">আরবী শিখুন আরও সহজ উপায়ে</p>
+            </div>
+          </div>
+        </a>
+      </div>
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="h-10 w-full flex-center gap-x-2 text-xl font-semibold text-center bg-slate-100">
+        className="block mx-auto mt-7 mb-2 flex-center gap-x-2 text-xl font-semibold text-center bg-slate-100 px-4 py-2 ">
         <FaPlus size={20}></FaPlus> Add a free Bangla resources
       </button>
 
@@ -76,100 +100,109 @@ const BanglaResources = () => {
                       from freely accessible sources.
                     </p>
                   </div>
-<form onSubmit={handleSubmit}>
-<input className="border-2 w-full h-14 p-2 mt-3" placeholder="Paste your URL or Links" type="text" />
-      <div >
-      <fieldset className="flex flex-col">
-      <legend>Select a content type:</legend>
-      <label>
-        <input
-        className="m-2"
-          type="radio"
-          name="audio"
-          value="Audio Resource"
-          checked={selectedType === "Audio Resource"}
-          onChange={typeChangeHandler}
-        />
-       Audio Resource
-      </label>
-      <label>
-        <input
-        className="m-2"
-          type="radio"
-          name="video"
-          value="Video Resource"
-          checked={selectedType === "Video Resource"}
-          onChange={typeChangeHandler}
-        />
-       Video Resource
-      </label>
-      <label>
-        <input
-        className="m-2"
-          type="radio"
-          name="book"
-          value="Book Resource"
-          checked={selectedType === "Book Resource"}
-          onChange={typeChangeHandler}
-        />
-       Book Resource
-      </label>
-      </fieldset>
-      <fieldset className="flex flex-col">
-      <legend>Select a content category:</legend>
-      <label>
-        <input
-        className="m-2"
-          type="radio"
-          name="sunnah"
-          value="sunnah"
-          checked={selectedCategory === "sunnah"}
-          onChange={categoryChangeHandler}
-        />
-       Hadith/Shunnah or Biography
-      </label>
-      <label>
-        <input
-        className="m-2"
-          type="radio"
-          name="lecture"
-          value="Lecture"
-          checked={selectedCategory === "Lecture"}
-          onChange={categoryChangeHandler}
-        />
-       Lecture or Waz
-      </label>
-      <label>
-        <input
-        className="m-2"
-          type="radio"
-          name="quran"
-          value="Quran"
-          checked={selectedCategory === "Quran"}
-          onChange={categoryChangeHandler}
-        />
-       Quran Related or Tafseer
-      </label>
-      <label>
-        <input
-        className="m-2"
-          type="radio"
-          name="other"
-          value="Other"
-          checked={selectedCategory === "Other"}
-          onChange={categoryChangeHandler}
-        />
-       Other 
-       </label>
-      </fieldset>
-      <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={() => setIsOpen(false)}>
-                      Submit
-                    </button>
-      </div>
-    </form>
+                  <form onSubmit={handleSubmit}>
+                    <input
+                      className="border-2 w-full h-14 p-2 mt-3"
+                      placeholder="Paste your URL or Links"
+                      type="text"
+                    />
+                    <input
+                      className="border-2 w-full h-14 p-2 mt-3"
+                      placeholder="Give a name of your resource"
+                      type="text"
+                    />
+                    <div>
+                      <fieldset className="flex flex-col">
+                        <legend>Select content type:</legend>
+                        <label>
+                          <input
+                            className="m-2"
+                            type="radio"
+                            name="audio"
+                            value="Audio Resource"
+                            checked={selectedType === "Audio Resource"}
+                            onChange={typeChangeHandler}
+                          />
+                          Audio Resource
+                        </label>
+                        <label>
+                          <input
+                            className="m-2"
+                            type="radio"
+                            name="video"
+                            value="Video Resource"
+                            checked={selectedType === "Video Resource"}
+                            onChange={typeChangeHandler}
+                          />
+                          Video Resource
+                        </label>
+                        <label>
+                          <input
+                            className="m-2"
+                            type="radio"
+                            name="book"
+                            value="Book Resource"
+                            checked={selectedType === "Book Resource"}
+                            onChange={typeChangeHandler}
+                          />
+                          Book Resource
+                        </label>
+                      </fieldset>
+                      <fieldset className="flex flex-col">
+                        <legend>Select a content category:</legend>
+                        <label>
+                          <input
+                            className="m-2"
+                            type="radio"
+                            name="sunnah"
+                            value="sunnah"
+                            checked={selectedCategory === "sunnah"}
+                            onChange={categoryChangeHandler}
+                          />
+                          Hadith/Shunnah or Biography
+                        </label>
+                        <label>
+                          <input
+                            className="m-2"
+                            type="radio"
+                            name="lecture"
+                            value="Lecture"
+                            checked={selectedCategory === "Lecture"}
+                            onChange={categoryChangeHandler}
+                          />
+                          Lecture or Waz
+                        </label>
+                        <label>
+                          <input
+                            className="m-2"
+                            type="radio"
+                            name="quran"
+                            value="Quran"
+                            checked={selectedCategory === "Quran"}
+                            onChange={categoryChangeHandler}
+                          />
+                          Quran Related or Tafseer
+                        </label>
+                        <label>
+                          <input
+                            className="m-2"
+                            type="radio"
+                            name="other"
+                            value="Other"
+                            checked={selectedCategory === "Other"}
+                            onChange={categoryChangeHandler}
+                          />
+                          Other
+                        </label>
+                      </fieldset>
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={() => setIsOpen(false)}>
+                        Submit
+                      </button>
+                    </div>
+                  </form>
 
                   <div className="mt-4">
                     <button
