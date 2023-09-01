@@ -1,12 +1,17 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { FaMusic, FaPlus, FaRegFileAudio, FaUser, FaVideo } from "react-icons/fa";
+import { Link, json, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const BanglaResources = () => {
+  const {user} = useContext(AuthContext)
   const [isOpen, setIsOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [selectedType, setSelectedType] = useState(""); // State to store selected option
   const [selectedCategory, setSelectedCategory] = useState(""); // State to store selected option
-
+  const location = useLocation()
+  const navigate = useNavigate()
   const typeChangeHandler = (event) => {
     setSelectedType(event.target.value);
   };
@@ -16,9 +21,36 @@ const BanglaResources = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Selected Option:", selectedType);
-    // You can perform any further actions with the selected option here
+    const form = event.target
+    const link = form.link.value
+    const name = form.name.value
+    const type = selectedType
+    const category = selectedCategory
+    const addedBy_email = user?.email
+  const addedBy_name = user?.email
+    
+    const token = localStorage.getItem('token')
+    console.log(token);
+    fetch(`http://localhost:5000/add-resource`, {
+      method:"POST",
+      headers:{
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body:JSON.stringify({link, name, type, category, addedBy_email, addedBy_name})
+    })
+
   };
+  const addResourceHandler =()=>{
+    if (user) {
+      setIsOpen(!isOpen)      
+    }else{
+      // navigate('/login')
+      setOpenModal(true)
+    }
+  }
+  
+  // setIsOpen(false)
   const fileType = 'audio'
   return (
     <section>
@@ -52,7 +84,7 @@ const BanglaResources = () => {
       </div>
 
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={addResourceHandler}
         className="block mx-auto mt-7 mb-2 flex-center gap-x-2 text-xl font-semibold text-center bg-slate-100 px-4 py-2 ">
         <FaPlus size={20}></FaPlus> Add a free Bangla resources
       </button>
@@ -103,11 +135,13 @@ const BanglaResources = () => {
                   <form onSubmit={handleSubmit}>
                     <input
                       className="border-2 w-full h-14 p-2 mt-3"
+                      name="link"
                       placeholder="Paste your URL or Links"
                       type="text"
                     />
                     <input
                       className="border-2 w-full h-14 p-2 mt-3"
+                      name="name"
                       placeholder="Give a name of your resource"
                       type="text"
                     />
@@ -196,9 +230,9 @@ const BanglaResources = () => {
                         </label>
                       </fieldset>
                       <button
-                        type="button"
+                        type="submit"
                         className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={() => setIsOpen(false)}>
+                       >
                         Submit
                       </button>
                     </div>
@@ -218,6 +252,57 @@ const BanglaResources = () => {
           </div>
         </Dialog>
       </Transition>
+
+
+      
+        <Transition appear show={openModal} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => setIsOpen(false)}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0">
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900">
+                    You need to login first
+                  </Dialog.Title>
+                    <Link state={location} className="block text-center w-full px-4 py-2 text-2xl text-white bg-blue-500 rounded-lg my-5" to='/login'>Login Now</Link>
+                  
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={() => setOpenModal(false)}>
+                      Cancel
+                    </button>
+                 
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      
     </section>
   );
 };

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 
 const Reg = () => {
@@ -22,10 +22,18 @@ const Reg = () => {
     })
   };
   const { googleSignInHandler } = useContext(AuthContext);
-  
+  const navigate = useNavigate()
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  const googleLogin =()=>{
+    googleSignInHandler().then(() => {
+      navigate('/')
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
   return (
     <section className="flex-center min-h-screen">
       <div className="w-full max-w-md p-6 rounded-lg shadow-md">
@@ -83,9 +91,10 @@ const Reg = () => {
         </form>
         <div className="text-center mt-3">----------- Or -----------</div>
         {/* -----or------- */}
-        <button onClick={googleSignInHandler} className="block mx-auto mt-3">
+        <button onClick={googleLogin} className="block mx-auto mt-3">
           <FaGoogle size={50}></FaGoogle>
         </button>
+        <div>Already have an account? Please <Link className="text-blue-500" to='/login'>Login</Link></div>
       </div>
     </section>
   );

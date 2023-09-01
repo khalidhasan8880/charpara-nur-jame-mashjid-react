@@ -66,7 +66,18 @@ const AuthProvider = ({ children }) => {
           if (currentUser) {
               setUser(currentUser)
               setLoading(false)
-             fetch('/l')
+             fetch('http://localhost:5000/jwt',{
+              method:"POST",
+              headers:{
+                "content-type":"application/json",  
+                // user:JSON.stringify()             
+              },
+              body:JSON.stringify({email:currentUser?.email, name:currentUser?.displayName})
+            })
+             .then((res)=>res.json())
+             .then(data=>{
+              localStorage.setItem('token', data?.token)
+             })
 
           } else {
               localStorage.removeItem('access-token')

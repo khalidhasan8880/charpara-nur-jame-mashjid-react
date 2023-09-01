@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate()
+  const location = useLocation()
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -16,7 +17,7 @@ const Login = () => {
 
   const googleLogin =()=>{
     googleSignInHandler().then(() => {
-      navigate('/')
+      navigate(location?.state?.pathname)
     })
     .catch((err) => {
       console.log(err);
@@ -70,6 +71,7 @@ const Login = () => {
         <button onClick={googleLogin} className="block mx-auto mt-3">
           <FaGoogle size={50}></FaGoogle>
         </button>
+        <div>No account? Please <Link className="text-blue-500" to='/registration'>Sign up</Link></div>
       </div>
     </section>
   );
