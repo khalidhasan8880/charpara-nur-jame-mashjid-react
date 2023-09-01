@@ -25,9 +25,9 @@ const amPm = currentTime.split(" ")[1]
   return (
     <div className="banner min-h-[60vh] flex-between">
       <div className="w-96">
-        {/* <h1 className="font-bold text-3xl md:text-5xl lg:text-7xl text-center text-white z-10">
+        <h1 className="font-bold text-3xl md:text-5xl lg:text-7xl text-center text-white z-10">
           সময়
-        </h1> */}
+        </h1>
         <div>
         <div onClick={playSound} className="grid grid-cols-2 gap-x-2 w-52 sm:w-full italic text-red-700  clock_font text-4xl md:text-5xl lg:text-7xl text-center neon-text">
          <p className="max-w-xs">{time}</p>
