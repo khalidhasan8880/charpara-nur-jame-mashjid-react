@@ -1,48 +1,74 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useContext, useState } from "react";
-import { FaMusic, FaPlus, FaRegFileAudio, FaUser, FaVideo } from "react-icons/fa";
-import { Link, json, useLocation, useNavigate } from "react-router-dom";
+import { Fragment, useContext, useEffect, useState } from "react";
+import { FaMusic, FaPlus,  FaUser, FaVideo } from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { toast } from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../components/Loading";
 
 const BanglaResources = () => {
   const {user} = useContext(AuthContext)
   const [isOpen, setIsOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [selectedType, setSelectedType] = useState(""); // State to store selected option
-  const [selectedCategory, setSelectedCategory] = useState(""); // State to store selected option
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [selectedType, setSelectedType] = useState(""); 
+  const [selectedLanguage, setSelectedLanguage] = useState(""); 
+  const [selectedCategory, setSelectedCategory] = useState(""); 
   const location = useLocation()
-  const navigate = useNavigate()
+
+  
+  const {isLoading, data:resources} = useQuery({
+    queryKey:['banglaResources'],
+    queryFn:async ()=> {
+     const res= await fetch("http://localhost:5000/bangla/resources")
+     return res.json()
+    }
+  })
   const typeChangeHandler = (event) => {
     setSelectedType(event.target.value);
   };
   const categoryChangeHandler = (event) => {
     setSelectedCategory(event.target.value);
   };
+  const contentLanguageHandler = (event) => {
+    setSelectedLanguage(event.target.value);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target
     const link = form.link.value
+    console.log(link.split(':')[0]);
+    if (link.split(':')[0] !== 'https') {
+      toast.error('Please provide a valid URL or Link')
+      return 
+    }
     const name = form.name.value
     const type = selectedType
     const category = selectedCategory
+    const contentLanguage = selectedLanguage
     const addedBy_email = user?.email
-  const addedBy_name = user?.displayName
+    const addedBy_name = user?.displayName
     
+    setSubmitLoading(true)
     const token = localStorage.getItem('token')
     console.log(token);
-    fetch(`http://localhost:5000/add-resource?email=${user?.email}`, {
+    fetch(`http://localhost:5000/add/resource?email=${user?.email}`, {
       method:"POST",
       headers:{
        
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body:JSON.stringify({link, name, type, category, addedBy_email, addedBy_name})
+      body:JSON.stringify({link, name, type, category, addedBy_email, addedBy_name, contentLanguage})
     })
     .then(res=>res.json())
     .then(data=>{
       console.log(data);
+      toast.success('Your letter has been sent to admin for verify your resource')
+      setSubmitLoading(false)
+      setIsOpen(false)
     })
 
 
@@ -58,6 +84,10 @@ const BanglaResources = () => {
   
   // setIsOpen(false)
   const fileType = 'audio'
+
+  if (isLoading) {
+    return <Loading></Loading>
+  }
   return (
     <section>
       <div className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-5">
@@ -88,10 +118,41 @@ const BanglaResources = () => {
           </div>
         </a>
       </div>
+      <div className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-5 mt-12">
+
+        {
+          resources?.map(resource => {
+            return(
+              <a
+              key={resource?._id}
+          className="relative bg-sky-100 shadow-md rounded-2xl  w-full p-5"
+          href={resource?.link}>
+            {
+             resource?.type == 'Audio Resource' ? <FaMusic className="absolute right-6 top-6"></FaMusic > : <FaVideo className="absolute right-6 top-6"></FaVideo>
+            }
+          <div className="flex flex-col items-start justify-center gap-3">
+            
+            <div className="flex items-center gap-3">
+              <div className="rounded-full bg-white p-2"><FaUser size={30}></FaUser></div>
+              <div className="flex flex-col">
+              <p className="font-extralight text-sm m-0">Added by</p>
+              <p className="m-0 font-bold">{resource?.addedBy_name}</p>
+              </div>
+            </div>
+            <div>
+              <p className="responsive-text2">{resource?.name}</p>
+            </div>
+          </div>
+        </a>
+            )
+          })
+        }
+        
+      </div>
 
       <button
         onClick={addResourceHandler}
-        className="block mx-auto mt-7 mb-2 flex-center gap-x-2 text-xl font-semibold text-center bg-slate-100 px-4 py-2 ">
+        className="flex-center mx-auto mt-16 mb-6 flex-center gap-x-2 text-xl font-semibold text-center bg-slate-100 px-4 py-2 ">
         <FaPlus size={20}></FaPlus> Add a free Bangla resources
       </button>
 
@@ -140,12 +201,14 @@ const BanglaResources = () => {
                   </div>
                   <form onSubmit={handleSubmit}>
                     <input
+                    required
                       className="border-2 w-full h-14 p-2 mt-3"
                       name="link"
                       placeholder="Paste your URL or Links"
                       type="text"
                     />
                     <input
+                    required
                       className="border-2 w-full h-14 p-2 mt-3"
                       name="name"
                       placeholder="Give a name of your resource"
@@ -153,9 +216,38 @@ const BanglaResources = () => {
                     />
                     <div>
                       <fieldset className="flex flex-col">
+                        <legend>Select content Language:</legend>
+                       
+                        <label>
+                          <input
+                          
+                            className="m-2"
+                            type="radio"
+                            name="bangla"
+                            value="Bangla"
+                            checked={selectedLanguage === "Bangla"}
+                            onChange={contentLanguageHandler}
+                          />
+                         Bangla
+                        </label>
+                        <label>
+                          <input
+                          
+                            className="m-2"
+                            type="radio"
+                            name="english"
+                            value="English"
+                            checked={selectedLanguage === "English"}
+                            onChange={contentLanguageHandler}
+                          />
+                        English
+                        </label>
+                      </fieldset>
+                      <fieldset className="flex flex-col">
                         <legend>Select content type:</legend>
                         <label>
                           <input
+                          
                             className="m-2"
                             type="radio"
                             name="audio"
@@ -167,6 +259,7 @@ const BanglaResources = () => {
                         </label>
                         <label>
                           <input
+                          
                             className="m-2"
                             type="radio"
                             name="video"
@@ -178,6 +271,7 @@ const BanglaResources = () => {
                         </label>
                         <label>
                           <input
+                          
                             className="m-2"
                             type="radio"
                             name="book"
@@ -192,6 +286,7 @@ const BanglaResources = () => {
                         <legend>Select a content category:</legend>
                         <label>
                           <input
+                          
                             className="m-2"
                             type="radio"
                             name="sunnah"
@@ -203,6 +298,7 @@ const BanglaResources = () => {
                         </label>
                         <label>
                           <input
+                          
                             className="m-2"
                             type="radio"
                             name="lecture"
@@ -214,6 +310,7 @@ const BanglaResources = () => {
                         </label>
                         <label>
                           <input
+                          
                             className="m-2"
                             type="radio"
                             name="quran"
@@ -225,6 +322,7 @@ const BanglaResources = () => {
                         </label>
                         <label>
                           <input
+                          
                             className="m-2"
                             type="radio"
                             name="other"
@@ -236,8 +334,9 @@ const BanglaResources = () => {
                         </label>
                       </fieldset>
                       <button
+                      disabled={submitLoading}
                         type="submit"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        className={`inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white  focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${submitLoading ? 'bg-blue-200' : 'bg-blue-500 hover:bg-blue-600 focus-visible:ring-blue-500 '}`}
                        >
                         Submit
                       </button>
