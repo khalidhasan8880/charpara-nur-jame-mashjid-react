@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link,  useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 
 const Reg = () => {
-    const {createUser} = useContext(AuthContext)
-    console.log(createUser);
-    Navigate
-  const [showPassword, setShowPassword] = useState(false);
+    const {createUser, updateUser} = useContext(AuthContext)
+    
+    const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate()
   const regHandler = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -16,13 +16,13 @@ const Reg = () => {
     const password = form.password.value;
     createUser(email, password)
     .then(()=>{
-      return <Navigate to='/'></Navigate>
+      updateUser(name)
+      navigate('/')
     }).catch(()=>{
       
     })
   };
   const { googleSignInHandler } = useContext(AuthContext);
-  const navigate = useNavigate()
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };

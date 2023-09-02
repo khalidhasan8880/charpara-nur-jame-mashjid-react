@@ -27,18 +27,24 @@ const BanglaResources = () => {
     const type = selectedType
     const category = selectedCategory
     const addedBy_email = user?.email
-  const addedBy_name = user?.email
+  const addedBy_name = user?.displayName
     
     const token = localStorage.getItem('token')
     console.log(token);
-    fetch(`http://localhost:5000/add-resource`, {
+    fetch(`http://localhost:5000/add-resource?email=${user?.email}`, {
       method:"POST",
       headers:{
+       
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body:JSON.stringify({link, name, type, category, addedBy_email, addedBy_name})
     })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data);
+    })
+
 
   };
   const addResourceHandler =()=>{

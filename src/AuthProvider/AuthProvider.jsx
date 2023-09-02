@@ -30,11 +30,13 @@ const AuthProvider = ({ children }) => {
 
   // google authentication
   const googleSignInHandler = async() => {
+    setLoading(true)
     return await signInWithPopup(auth, googleProvider)
   };
 
 
  const createUser  = (email,password)=>{
+  setLoading(true)
   return createUserWithEmailAndPassword(auth, email, password)
  }
 
@@ -77,6 +79,21 @@ const AuthProvider = ({ children }) => {
              .then((res)=>res.json())
              .then(data=>{
               localStorage.setItem('token', data?.token)
+             
+              console.log(currentUser);
+              if (!loading) {
+                fetch(`http://localhost:5000/users?email=${currentUser?.email}&name=${currentUser?.displayName}`,{
+                  method:"POST",
+                  headers:{
+                    "Authorization": `Bearer ${data?.token}`,
+                    'content-type':'application/json'
+                  }
+                })
+                .then(res=>res.json())
+                .then(data=>{
+                  console.log(data);
+                })
+              }             
              })
 
           } else {
@@ -89,7 +106,7 @@ const AuthProvider = ({ children }) => {
       return () => {
           unsubscribe()
       }
-  }, [])
+  }, [loading])
 // auth information
   const authInfo = {
     allChapterInfo,

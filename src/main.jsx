@@ -16,6 +16,8 @@ import Reg from "./pages/Login&Reg/Reg.jsx";
 import MediaProvider from "./MediaProvider.jsx/MediaProvider.jsx";
 import LearnQuran from "./pages/LearnQuran/LearnQuran.jsx";
 import Resources from "./pages/Resources/Resources.jsx";
+import MonthlyMasjidBill from "./pages/MonthlyMasjidBill/MonthlyMasjidBill.jsx";
+import Donate from "./pages/Donate/Donate.jsx";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
       {
         path: "resources",
         element: <Resources></Resources>
+      },
+      {
+        path: "monthly_masjid_bill",
+        element: <MonthlyMasjidBill></MonthlyMasjidBill>
+      },
+      {
+        path: "donate",
+        element: <Donate></Donate>
       },
     ],
   },
