@@ -10,6 +10,7 @@ export default function Example() {
   // const [Type, setType]= useState('Audio')
   const contentSet=(content)=>{
     setContent(content)
+    
   }
   return (
     <section>

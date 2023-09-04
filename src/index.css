@@ -18,16 +18,13 @@ html {
   }
  
  
-  section {
-    @apply sm:p-4 p-1;
-  }
+ 
   body{
-   @apply bg-blue-100
-    sm:px-2 
+   @apply bg-blue-100   
   }
 
   section{
-    @apply bg-white p-5 rounded-xl
+    @apply bg-white rounded-xl  sm:p-4 p-1
   }
  .responsive-text1{
   font-weight: bolder;
