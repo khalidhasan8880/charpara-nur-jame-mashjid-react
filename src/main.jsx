@@ -18,6 +18,7 @@ import LearnQuran from "./pages/LearnQuran/LearnQuran.jsx";
 import Resources from "./pages/Resources/Resources.jsx";
 import MonthlyMasjidBill from "./pages/MonthlyMasjidBill/MonthlyMasjidBill.jsx";
 import Donate from "./pages/Donate/Donate.jsx";
+import Hadith from "./pages/Hadith/Hadith.jsx";
 
 
 const queryClient = new QueryClient();
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "donate",
         element: <Donate></Donate>
+      },
+      {
+        path: "hadith",
+        element: <Hadith></Hadith>
       },
      
     ],
