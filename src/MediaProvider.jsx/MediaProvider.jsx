@@ -28,15 +28,13 @@ const MediaProvider = ({ children }) => {
       audioElement.current.src = allAudio[audioIndex];
       audioElement.current.currentTime = pausedTime;
       audioElement.current.play();
-    } else {
-      audioElement.current.pause();
-    }
+    } 
     const audioEl = audioElement.current;
-    audioEl.onended = () => {
-      console.log('Audio has ended.');
-      setAudioIndex(audioIndex + 1)
-      audioElement.current.play();
-    };
+    // audioEl.onended = () => {
+    //   console.log('Audio has ended.');
+    //   setAudioIndex(audioIndex + 1)
+    //   audioElement.current.play();
+    // };
 
   }, [isPlaying, audioIndex, allAudio, pausedTime]);
 

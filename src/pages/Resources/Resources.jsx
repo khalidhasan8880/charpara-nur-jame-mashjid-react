@@ -1,6 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
-import { FaBars, FaBeer } from "react-icons/fa";
+import {  useState } from "react";
+import { FaBars,  } from "react-icons/fa";
 import BanglaResources from "./BanglaResources";
 import EnglishResources from "./EnglishResources";
 
@@ -13,7 +13,7 @@ export default function Example() {
   }
   return (
     <section>
-      <div className=" text-right sm:mb-2 mb-24">
+      <div className=" text-right sm:mb-2 mb-9">
         <Menu as="div" className="inline-block text-left">
           <div>
             <Menu.Button className="inline-flex w-full justify-center rounded-md  px-4 py-2  font-medium ">

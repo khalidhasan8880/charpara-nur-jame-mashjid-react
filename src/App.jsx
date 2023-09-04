@@ -11,7 +11,7 @@ function App() {
       <Outlet>
         <Home></Home>
       </Outlet>
-      <AudioPlayer></AudioPlayer>
+      {/* <AudioPlayer></AudioPlayer> */}
       
      <Toaster />
     </>

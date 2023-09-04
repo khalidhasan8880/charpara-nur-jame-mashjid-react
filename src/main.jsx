@@ -19,6 +19,7 @@ import Resources from "./pages/Resources/Resources.jsx";
 import MonthlyMasjidBill from "./pages/MonthlyMasjidBill/MonthlyMasjidBill.jsx";
 import Donate from "./pages/Donate/Donate.jsx";
 
+
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -65,6 +66,7 @@ const router = createBrowserRouter([
         path: "donate",
         element: <Donate></Donate>
       },
+     
     ],
   },
 ]);
