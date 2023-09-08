@@ -19,6 +19,9 @@ import Resources from "./pages/Resources/Resources.jsx";
 import MonthlyMasjidBill from "./pages/MonthlyMasjidBill/MonthlyMasjidBill.jsx";
 import Donate from "./pages/Donate/Donate.jsx";
 import Hadith from "./pages/Hadith/Hadith.jsx";
+import Dashboard from "./pages/Dashboard/Dashboard.jsx";
+import Profile from "./pages/Profile/Profile.jsx";
+import Setting from "./pages/Setting/Setting.jsx";
 
 
 const queryClient = new QueryClient();
@@ -70,6 +73,18 @@ const router = createBrowserRouter([
       {
         path: "hadith",
         element: <Hadith></Hadith>
+      },
+      {
+        path: "dashboard",
+        element: <Dashboard></Dashboard>
+      },
+      {
+        path: "profile",
+        element: <Profile></Profile>
+      },
+      {
+        path: "setting",
+        element: <Setting></Setting>
       },
      
     ],
