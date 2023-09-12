@@ -34,6 +34,10 @@ const AddResource = () => {
       toast.error("Please provide a valid URL or Link");
       return;
     }
+    if (!selectedType || !selectedLanguage || !selectedCategory) {
+      alert('Please select an option.');
+      return
+    }
     const name = form.name.value;
     const type = selectedType;
     const category = selectedCategory;
@@ -65,13 +69,11 @@ const AddResource = () => {
         console.log(data);
         toast.success(
           "Your letter has been sent to admin for verify your resource", {
-            duration: 7000,
+            duration: 2000,
             position: 'top-right',
-            icon: '⏳',
             style: {
                 border: '1px solid #713200',
                 padding: '16px',
-fontSize:'1.4rem'
               },
           }
         );

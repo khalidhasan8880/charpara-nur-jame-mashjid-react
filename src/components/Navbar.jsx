@@ -19,7 +19,7 @@ const Navbar = () => {
       </div>
       <div className=""></div>
 
-      { user && <Menu as="div" className="inline-block text-left">
+      { user ? <Menu as="div" className="inline-block text-left">
         <div>
           <Menu.Button onClick={toggleMenuHandler} className="inline-flex w-full justify-center rounded-md  px-4 py-2  font-medium ">
             <div className="rounded-full  p-2">
@@ -81,8 +81,7 @@ const Navbar = () => {
                   <FaArrowRight></FaArrowRight>
                 </div>
               </NavLink>
-              {user?.uid ? (
-                <NavLink
+              <NavLink
                   className="group hover:bg-blue-100 transition flex w-full items-center rounded-md px-2 py-2 font-semibold"
                   onClick={logOut}
                   to="/login">
@@ -91,18 +90,18 @@ const Navbar = () => {
                   </div>{" "}
                   Logout
                 </NavLink>
-              ) : (
-                <NavLink
-                  className="group hover:bg-blue-100 transition flex w-full items-center rounded-md px-2 py-2 font-semibold"
-                  onClick={logIn}
-                  to="/login">
-                  Login
-                </NavLink>
-              )}
             </div>
           </Menu.Items>
         </Transition>
-      </Menu>}
+      </Menu>
+      :
+      <NavLink
+      className="group hover:bg-blue-100 transition flex items-center rounded-md px-2 py-2 font-semibold"
+      onClick={logIn}
+      to="/login">
+      Login
+    </NavLink>
+      }
     </nav>
   );
 };

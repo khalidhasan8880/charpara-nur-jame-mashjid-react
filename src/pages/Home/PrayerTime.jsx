@@ -43,6 +43,20 @@ const PrayerTime = () => {
   console.log(windowSize);
   // console.log(data?.today);
   console.log(data);
+
+  function tConvert (time) {
+    // Check correct time format and split into components
+    time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+  
+    if (time.length > 1) { // If time format correct
+      time = time.slice (1);  // Remove full string match value
+      time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+      time[0] = +time[0] % 12 || 12; // Adjust hours
+    }
+    return time.join (''); // return adjusted time or original string
+  }
+  
+  tConvert ('18:00:00');
   return (
     <section className=" container mx-auto mt-24">
         <h2 className="font-bold sm:text-3xl text-2xl ms-3 my-5">Prayer Times in Faridpur</h2>
@@ -55,12 +69,12 @@ const PrayerTime = () => {
           clickable: true,
         }}
         modules={[FreeMode, Pagination]}
-        className="mySwiper sm:h-40 ms-3 px-2 py-2 z-0"
+        className="mySwiper sm:h-40 ms-3 px-2 py-2 "
       >
         {Object?.keys(data)?.map((keyName) => (
           <SwiperSlide
             key={keyName}
-            className="shadow-md bg-blue-100 rounded-2xl flex flex-col items-center justify-center w-full  p-1 sm:p-3">
+            className="shadow-md bg-blue-100 rounded-2xl flex -z-40 flex-col  items-center justify-center w-full  p-1 sm:p-3">
             <h3 className="sm:font-bold font-semibold md:text-2xl">{keyName}</h3>
             <h3 className="sm:font-bold mt-3  md:text-2xl">{data[keyName]}</h3>
           </SwiperSlide>
