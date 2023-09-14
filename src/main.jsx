@@ -22,6 +22,8 @@ import Hadith from "./pages/Hadith/Hadith.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
 import Setting from "./pages/Setting/Setting.jsx";
+import AdminRoute from "./pages/AdminRoute/AdminRoute.jsx";
+import ManageUsers from "./pages/Dashboard/ManageUsers/ManageUsers.jsx";
 
 
 const queryClient = new QueryClient();
@@ -74,10 +76,7 @@ const router = createBrowserRouter([
         path: "hadith",
         element: <Hadith></Hadith>
       },
-      {
-        path: "dashboard",
-        element: <Dashboard></Dashboard>
-      },
+      
       {
         path: "profile",
         element: <Profile></Profile>
@@ -86,6 +85,17 @@ const router = createBrowserRouter([
         path: "setting",
         element: <Setting></Setting>
       },
+      {
+        path: "dashboard",
+        element: <Dashboard></Dashboard>,
+        children:[
+          {
+            path: "manage_users",
+            element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
+          },
+        ]
+      },
+      
      
     ],
   },

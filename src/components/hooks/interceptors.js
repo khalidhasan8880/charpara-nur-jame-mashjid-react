@@ -1,16 +1,16 @@
 import axios from "axios"
 
 
-const authFetch = axios.create({
+const api = axios.create({
     baseURL: 'http://localhost:5000', 
 })
 
-authFetch.interceptors.request.use((request)=>{
+api.interceptors.request.use((request)=>{
     request.headers.Accept = 'application/json'
     const token =  localStorage.getItem('token')
     if (token) {
         console.log(token);
-        request.headers.Authorization = token
+        request.headers.Authorization = `Bearer ${token}`
     }
     console.log('request send');
   return request
@@ -18,11 +18,11 @@ authFetch.interceptors.request.use((request)=>{
     console.log(error);
     return Promise.reject(error)
 })
-authFetch.interceptors.response.use((response)=>{
+api.interceptors.response.use((response)=>{
     console.log('got respond');
     return response
 }, (error)=>{
     console.log(error);
 })
 
-export default authFetch
+export default api
