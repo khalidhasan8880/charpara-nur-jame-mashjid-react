@@ -5,8 +5,7 @@ import Loading from "../../components/Loading";
 
 const AdminRoute = ({children}) => {
     const {user, loading, logOut} = useAuth()
-    const data = useAdmin()
-    const isAdmin = data?.isAdmin
+    const {isAdmin} = useAdmin()
    if (loading) {
     return <Loading></Loading>
    }
@@ -20,3 +19,21 @@ const AdminRoute = ({children}) => {
 };
 
 export default AdminRoute;
+
+
+
+{/* <Navbar
+className="relative px-4 py-3 flex items-center space-x-4 rounded-lg text-white bg-gradient-to-r from-sky-600 to-cyan-400">
+<FaUsers></FaUsers>
+<span className="-mr-1 font-medium"> Manage User</span>
+</Navbar>
+<Navbar
+className="relative px-4 py-3 flex items-center space-x-4 rounded-lg text-white bg-gradient-to-r from-sky-600 to-cyan-400">
+<FaServer></FaServer>
+<span className="-mr-1 font-medium"> Manage Resources</span>
+</Navbar>
+<Navbar
+className="relative px-4 py-3 flex items-center space-x-4 rounded-lg text-white bg-gradient-to-r from-sky-600 to-cyan-400">
+<FaSackDollar></FaSackDollar>
+<span className="-mr-1 font-medium"> Masjid Fund</span>
+</Navbar> */}

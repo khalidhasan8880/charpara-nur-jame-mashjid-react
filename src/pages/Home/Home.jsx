@@ -1,8 +1,11 @@
+import useAdmin from "../../components/hooks/useAdmin";
 import Banner from "./Banner";
 import LearningSection from "./LearningSection";
 import PrayerTime from "./PrayerTime";
 
 const Home = () => {
+    const {isAdmin} = useAdmin()
+    console.log(isAdmin);
     return (
         <>
             {/* <Banner></Banner> */}

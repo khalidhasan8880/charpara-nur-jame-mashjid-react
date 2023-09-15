@@ -54,12 +54,13 @@ const AuthProvider = ({ children }) => {
 
 
   const updateUser = (name) => {
+    setLoading(true)
       return updateProfile(auth.currentUser, {
           displayName: name
       }).then(() => {
-          console.log('profile update success');
+          setLoading(false)
       }).catch(() => {
-          console.log('profile update failed');
+        setLoading(false)
       })
   }
 

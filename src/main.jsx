@@ -24,6 +24,8 @@ import Profile from "./pages/Profile/Profile.jsx";
 import Setting from "./pages/Setting/Setting.jsx";
 import AdminRoute from "./pages/AdminRoute/AdminRoute.jsx";
 import ManageUsers from "./pages/Dashboard/ManageUsers/ManageUsers.jsx";
+import ManageResources from "./pages/Dashboard/ManageResources/ManageResources.jsx";
+import MasjidFund from "./pages/Dashboard/MasjidFund/MasjidFund.jsx";
 
 
 const queryClient = new QueryClient();
@@ -92,6 +94,14 @@ const router = createBrowserRouter([
           {
             path: "manage_users",
             element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
+          },
+          {
+            path: "manage_resources",
+            element: <AdminRoute><ManageResources></ManageResources></AdminRoute>
+          },
+          {
+            path: "masjid_fund",
+            element: <AdminRoute><MasjidFund></MasjidFund></AdminRoute>
           },
         ]
       },

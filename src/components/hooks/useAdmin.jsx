@@ -6,7 +6,7 @@ import api from "./interceptors"
 const useAdmin = ()=>{
     const {user, loading} = useContext(AuthContext)
 
-  const {data,isLoading}= useQuery({
+  const {data,isLoading:isAdminLoading}= useQuery({
     enabled:!!user?.email && !loading,
     queryKey:['demoaxios'],
     queryFn:async ()=> {
@@ -14,9 +14,8 @@ const useAdmin = ()=>{
      return res?.data
     }
   })
-  if (!isLoading) {
-    return data
-  }
+  return {isAdmin: data?.isAdmin, isAdminLoading}
+  
 }
 
 export default useAdmin
