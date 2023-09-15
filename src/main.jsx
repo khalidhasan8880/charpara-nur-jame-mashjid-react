@@ -26,6 +26,7 @@ import AdminRoute from "./pages/AdminRoute/AdminRoute.jsx";
 import ManageUsers from "./pages/Dashboard/ManageUsers/ManageUsers.jsx";
 import ManageResources from "./pages/Dashboard/ManageResources/ManageResources.jsx";
 import MasjidFund from "./pages/Dashboard/MasjidFund/MasjidFund.jsx";
+import AdminHome from "./pages/Dashboard/AdminHome/AdminHome.jsx";
 
 
 const queryClient = new QueryClient();
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
         path: "dashboard",
         element: <Dashboard></Dashboard>,
         children:[
+          {
+            path: "admin_home",
+            element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+          },
           {
             path: "manage_users",
             element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>

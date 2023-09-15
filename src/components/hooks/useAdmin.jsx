@@ -10,7 +10,7 @@ const useAdmin = ()=>{
     enabled:!!user?.email && !loading,
     queryKey:['demoaxios'],
     queryFn:async ()=> {
-     const res = await api.post(`/demo/axios?email=${user?.email}`)
+     const res = await api.post(`/isAdmin?email=${user?.email}`)
      return res?.data
     }
   })
